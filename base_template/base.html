@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+{% include "partials/head.html" %}
+<body>
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Cardápio Digital</h1>
+    </header>
+    <main class="container mt-4">
+       {% block main_content %}{% endblock main_content %}
+    </main>
+    <div class="container-home">
+        <nav class="options-home">
+            <ul class="list-options-home">
+                <a href="{% url "menu_app:menu" %}"><li><i class="bi bi-house-door"></i></li></a>
+                <a href="#"><li><i class="bi bi-list-ul"></i></li></a>
+                <a href="#"><li><i class="bi bi-cart-dash"></i></li></a>
+            </ul>
+        </nav>
+    <div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+:root {
+    --primary-color: #4cb944;
+}
+
+
+.access {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image-products {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.category {
+    box-shadow: 2px 1px 5px 1px;
+}
+
+.name-category {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.image-specific {
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 1px;
+}
+
+.container-home {
+    background: var(--primary-color);
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    margin-top: 5px;
+}
+
+.options-home {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.list-options-home {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    padding: 0;
+    justify-content: space-around;
+}
+
+.list-options-home li{
+    color: #ffffff;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.container {
+    margin-bottom: 60px;
+}
