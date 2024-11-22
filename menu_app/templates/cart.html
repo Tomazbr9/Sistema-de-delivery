@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block main_content %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Carrinho de Compras</h1>
+        {% if cart %}
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Produto</th>
+                        <th>Preço Unitário</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product_id, item in cart.items %}
+                    <tr>
+                        <td><img src="{{ item.image }}" alt="{{ item.name }}" class="cart-image"></td>
+                        <td>{{ item.name }}</td>
+                        <td>R$ {{ item.price }}</td>
+                        <td>
+                            <form action="{% url "menu_app:add" product_id %}" method="POST" class="d-flex justify-content-center align-items-center">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="decrease" class="btn btn-outline-danger btn-sm">-</button>
+                                <span class="mx-2">{{ item.quantify }}</span>
+                                <button type="submit" name="action" value="increase" class="btn btn-outline-success btn-sm">+</button>
+                            </form>
+                        </td>
+                        <td>R$ {{ item.price|multiply:item.quantify|floatformat:2}}</td>
+                        <td>
+                            <form action="{% url "menu_app:delete" product_id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                        <td colspan="2"><strong>R$ {{ total|floatformat:2 }}</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="d-flex justify-content-end">
+                <a href="" class="btn btn-primary">Finalizar Compra</a>
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center">
+                Seu carrinho está vazio. <a href="{% url 'menu_app:menu' %}" class="alert-link">Voltar ao menu</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock main_content %}

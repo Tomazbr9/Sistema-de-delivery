@@ -26,7 +26,7 @@
             </div>
 
             <!-- Formulário de adicionar ao pedido -->
-            <form action="" method="POST">
+            <form action="{% url "menu_app:add" product.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" id="final-quantity" name="quantity" value="1">
                 <button type="submit" class="btn btn-primary">Adicionar ao Pedido</button>
@@ -36,20 +36,20 @@
 </div>
 <script>
     // Atualiza o valor total ao mudar a quantidade
-    const price = parseFloat({{ product.price }});
-    const quantityInput = document.getElementById('quantity');
-    const totalPriceDisplay = document.getElementById('total-price');
-    const finalQuantityInput = document.getElementById('final-quantity');
+    const price = parseFloat({{ product.price }})
+    const quantityInput = document.getElementById('quantity')
+    const totalPriceDisplay = document.getElementById('total-price')
+    const finalQuantityInput = document.getElementById('final-quantity')
 
-    const increaseButton = document.getElementById('increase');
-    const decreaseButton = document.getElementById('decrease');
+    const increaseButton = document.getElementById('increase')
+    const decreaseButton = document.getElementById('decrease')
 
     // Função para atualizar o preço total
     function updateTotalPrice() {
         const quantity = parseInt(quantityInput.value)
-        const total = price * quantity;
+        const total = price * quantity
         totalPriceDisplay.textContent = total.toFixed(2)
-        finalQuantityInput.value = quantity;  // Atualiza o valor do formulário
+        finalQuantityInput.value = quantity  // Atualiza o valor do formulário
     }
 
     // Botões de aumentar e diminuir a quantidade
