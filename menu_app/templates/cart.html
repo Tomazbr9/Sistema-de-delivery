@@ -24,11 +24,11 @@
                         <td>
                             <div class="d-flex justify-content-center align-items-center">
                                 <button class="btn btn-outline-danger btn-sm update-cart" data-action="decrease" data-product-id="{{product_id}}">-</button>
-                                <span class="mx-2" id="quantify-{{product_id}}">{{ item.quantify }}</span>
+                                <span class="mx-2" id="quantity-{{product_id}}">{{ item.quantity }}</span>
                                 <button class="btn btn-outline-success btn-sm update-cart" data-action="increase" data-product-id="{{product_id}}" >+</button>
                             </div>
                         </td>
-                        <td id="subtotal-{{product_id}}">R$ {{ item.price|multiply:item.quantify|floatformat:2}}</td>
+                        <td id="subtotal-{{product_id}}">R$ {{ item.price|multiply:item.quantity|floatformat:2}}</td>
                         <td>
                             <form action="{% url "menu_app:delete" product_id %}" method="POST">
                                 {% csrf_token %}
@@ -41,7 +41,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="4" class="text-end"><strong>Total:</strong></td>
-                        <td id='total' colspan="2"><strong>R$ {{ total|floatformat:2 }}</strong></td>
+                        <td colspan="2"><strong id='total'>R$ {{ total|floatformat:2 }}</strong></td>
                     </tr>
                 </tfoot>
             </table>
@@ -54,4 +54,7 @@
             </div>
         {% endif %}
     </div>
+<script>
+    const csrfToken = '{{ csrf_token }}'
+</script>
 {% endblock main_content %}

@@ -11,7 +11,6 @@ class Category(models.Model):
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
 
-# Tabela de Produto
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -30,7 +29,6 @@ class Product(models.Model):
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
 
-# Tabela de Endereço multivalorada
 class Address(models.Model):
     full_address = models.CharField(max_length=255)
     number = models.CharField(max_length=20)
@@ -45,7 +43,6 @@ class Address(models.Model):
         verbose_name = 'Endereço'
         verbose_name_plural = 'Endereços'
 
-# Tabela de Cliente
 class Customer(models.Model):
     name = models.CharField(max_length=255)
     number = models.CharField(max_length=15)
@@ -59,7 +56,6 @@ class Customer(models.Model):
         verbose_name_plural = 'Clientes'
     
 
-# Tabela de Pedidos
 class Order(models.Model):
     
     STATUS_CHOICES = [
