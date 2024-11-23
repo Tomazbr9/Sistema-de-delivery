@@ -10,13 +10,13 @@
         <div class="col-md-6">
             <h1>{{ product.name }}</h1>
             <p><strong>Descrição:</strong> {{ product.description }}</p>
-            <p><strong>Preço:</strong> R$ {{ product.price }}</p>
+            <p id="priceProduct" data-price="{{product.price}}"><strong>Preço:</strong> R$ {{ product.price }}</p>
 
             <div class="mb-4">
                 <label for="quantity" class="form-label">Quantidade:</label>
                 <div class="input-group">
                     <button class="btn btn-outline-secondary" id="decrease" type="button">-</button>
-                    <input type="text" id="quantity" name="quantity" class="form-control" value="1" min="1">
+                    <input type="text" id="quantify" name="quantify" class="form-control" value="1" min="1">
                     <button class="btn btn-outline-secondary" id="increase" type="button">+</button>
                 </div>
             </div>
@@ -28,46 +28,12 @@
             <!-- Formulário de adicionar ao pedido -->
             <form action="{% url "menu_app:add" product.id %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" id="final-quantity" name="quantity" value="1">
+                <input type="hidden" id="final-quantity" name="quantify" value="1">
                 <button type="submit" class="btn btn-primary">Adicionar ao Pedido</button>
             </form>
         </div>
     </div>
 </div>
-<script>
-    // Atualiza o valor total ao mudar a quantidade
-    const price = parseFloat({{ product.price }})
-    const quantityInput = document.getElementById('quantity')
-    const totalPriceDisplay = document.getElementById('total-price')
-    const finalQuantityInput = document.getElementById('final-quantity')
-
-    const increaseButton = document.getElementById('increase')
-    const decreaseButton = document.getElementById('decrease')
-
-    // Função para atualizar o preço total
-    function updateTotalPrice() {
-        const quantity = parseInt(quantityInput.value)
-        const total = price * quantity
-        totalPriceDisplay.textContent = total.toFixed(2)
-        finalQuantityInput.value = quantity  // Atualiza o valor do formulário
-    }
-
-    // Botões de aumentar e diminuir a quantidade
-    increaseButton.addEventListener('click', () => {
-        quantityInput.value = parseInt(quantityInput.value) + 1
-        updateTotalPrice()
-    })
-
-    decreaseButton.addEventListener('click', () => {
-        if (parseInt(quantityInput.value) > 1) {
-            quantityInput.value = parseInt(quantityInput.value) - 1
-            updateTotalPrice()
-        }
-    })
-
-    // Atualiza o total inicialmente
-    updateTotalPrice()
-</script>
 {% endblock main_content %}
 
 

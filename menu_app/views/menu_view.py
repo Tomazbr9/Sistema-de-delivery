@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
 from menu_app.models import Category, Product
 
 
@@ -34,6 +35,8 @@ def add_to_cart(request, product_id):
     quantify = int(request.POST.get('quantify', 1))
 
     cart = request.session.get('cart', {})
+
+    print(cart)
 
     if str(product.pk) in cart:
         cart[str(product.pk)]['quantify'] += quantify
@@ -73,5 +76,28 @@ def delete_item(request, product_id):
    
     return redirect('menu_app:cart')
 
-def check(request):
-    ...
+def update_product(request, product_id):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        cart = request.session.get('cart', {})
+
+        if str(product_id) in cart:
+            if action == 'increase':
+                cart[str(product_id)]['quantify'] += 1
+            elif action == 'decrease':
+                if cart[str(product_id)]['quantify'] > 1:
+                    cart[str(product_id)]['quantify'] -= 1
+                else:
+                    return JsonResponse({'error': 'A quantidade mínima é 1'})
+        else:
+            return JsonResponse({'error': 'Produto não encontrado no carrinho'}, status=404 )
+        
+        request.session['cart'] = cart
+        request.session.modified = True
+
+        subtotal = cart[str(product_id)]['price'] * cart[str(product_id)]['quantify']
+        total = sum(item['price'] * item['quantify'] for item in cart.values())
+
+        return JsonResponse({'subtotal': subtotal, 'total': total})
+    
+    return JsonResponse({'error': 'Método não permitido'}, status=405)
