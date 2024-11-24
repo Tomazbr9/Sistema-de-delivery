@@ -68,7 +68,6 @@ class Order(models.Model):
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='pedidos'
     )
-    products = models.ManyToManyField(Product)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default='pendente'
@@ -82,3 +81,15 @@ class Order(models.Model):
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
 
+
+class OrderProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_products')
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.product.name} x {self.quantity}'
+    
+    class Meta:
+        verbose_name = 'Produto no pedido'
+        verbose_name_plural = 'Produtos no pedido'

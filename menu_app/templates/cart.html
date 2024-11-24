@@ -30,7 +30,7 @@
                         </td>
                         <td id="subtotal-{{product_id}}">R$ {{ item.price|multiply:item.quantity|floatformat:2}}</td>
                         <td>
-                            <form action="{% url "menu_app:delete" product_id %}" method="POST">
+                            <form action="{% url "menu_app:remove_item" product_id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger btn-sm">Remover</button>
                             </form>

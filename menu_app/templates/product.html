@@ -25,7 +25,7 @@
             </div>
 
             <!-- Formulário de adicionar ao pedido -->
-            <form action="{% url "menu_app:add" product.id %}" method="POST">
+            <form action="{% url "menu_app:add_item" product.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" id="final-quantity" name="quantity" value="1">
                 <button type="submit" class="btn btn-primary">Adicionar ao Pedido</button>

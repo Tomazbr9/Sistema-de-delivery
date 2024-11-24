@@ -48,7 +48,7 @@ document.querySelectorAll('.update-cart').forEach(button => {
         const totalElement = document.getElementById('total') // Obtém o elemento do total geral
     
         // Faz uma requisição para o servidor para atualizar o carrinho
-        fetch(`/cart/update/${productId}/`, {
+        fetch(`/update_item/${productId}/`, {
             method: 'POST', // Define o método como POST
             headers: {
                 'Content-Type': 'application/json', // Especifica que o corpo da requisição é JSON
@@ -70,7 +70,7 @@ document.querySelectorAll('.update-cart').forEach(button => {
             })
             .catch(error => {
                 console.error(error); // Exibe o erro no console
-                alert('Ocorreu um erro ao atualizar o carrinho.'); // Exibe um alerta caso haja erro
+                alert('Ocorreu um erro ao atualizar o carrinho.') // Exibe um alerta caso haja erro
             })
     })
 })

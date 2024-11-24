@@ -13,8 +13,6 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
 
-    # address = AddressSerializer(many=True, read_only=True)
-
     class Meta:
         model = Customer
         fields = '__all__'
