@@ -64,3 +64,19 @@
     object-fit: cover;
     border-radius: 8px;
 }
+
+.modal-option {
+    position: absolute;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.img-add-to-cart {
+    width: 200px;
+}
+
+.modal-content-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

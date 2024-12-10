@@ -74,3 +74,32 @@ document.querySelectorAll('.update-cart').forEach(button => {
             })
     })
 })
+
+
+document.getElementById('addToCartForm').addEventListener('submit', async function (event) {
+    event.preventDefault() // Impede o envio padrão do formulário
+
+    const form = event.target
+    const formData = new FormData(form)
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+        })
+
+        if (response.ok) {
+            // Exibir o modal
+            const modal = new bootstrap.Modal(document.getElementById('addToCartModal'))
+            modal.show()
+        } else {
+            alert('Erro ao adicionar ao carrinho. Tente novamente.')
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro. Tente novamente.')
+    }
+})

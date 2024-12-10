@@ -1,11 +1,12 @@
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.views import APIView
-from django.shortcuts import render, redirect, get_object_or_404
-from menu_app.models import Customer, Product, Order
-from django.http import JsonResponse
-from django.template.response import TemplateResponse
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.response import TemplateResponse
+from django.contrib import messages
+from django.shortcuts import redirect
+from menu_app.models import Customer, Product, Order
 from menu_app.serializers import (CustomerSerializer, 
 ProductSerializer, OrderSerializer)
 import json
@@ -58,8 +59,10 @@ class AddToCartView(APIView):
         
         # Atualizar o carrinho na sessão
         request.session['cart'] = cart
+
+        messages.success(request, 'Item adicionado com sucesso')
         
-        return Response({'message': 'Item adicionado ao carrinho'})
+        return redirect('menu_app:cart')
 
 class DeleteItemAPIView(APIView):
     """
@@ -75,7 +78,7 @@ class DeleteItemAPIView(APIView):
             del cart[str(product_id)]
             # Atualiza o carrinho na sessão com a nova lista de itens (sem o item removido).
             request.session['cart'] = cart
-            return Response({'message': 'Item removed successfully'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Item Removido com sucesso'}, status=status.HTTP_200_OK)
 
         # Se o item não estiver no carrinho, retorna um erro.
         return Response(
