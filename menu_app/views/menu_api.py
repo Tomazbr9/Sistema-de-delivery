@@ -59,8 +59,6 @@ class AddToCartView(APIView):
         
         # Atualizar o carrinho na sessão
         request.session['cart'] = cart
-
-        messages.success(request, 'Item adicionado com sucesso')
         
         return redirect('menu_app:cart')
 

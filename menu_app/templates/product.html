@@ -28,13 +28,13 @@
             <form id="addToCartForm" action="{% url "menu_app:add_item" product.id %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" id="final-quantity" name="quantity" value="1">
-                <button id="addToCartBtn" type="submit" class="btn btn-primary">Adicionar ao Pedido</button>
+                <button onclick="addItemToCart()" id="addToCartBtn" type="submit" class="btn btn-primary">Adicionar ao Pedido</button>
             </form>
         </div>
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
