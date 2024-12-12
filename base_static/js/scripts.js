@@ -106,6 +106,50 @@ function addItemToCart(){
     })
 }
 
+function displayMessage(msg, classMsg){
+    const divMsg = document.createElement('div')
+    divMsg.textContent = msg
+    divMsg.className = `alert alert-success ${classMsg}`
+    document.body.appendChild(divMsg)
 
-function removeItemToCart(){
+    setTimeout(()=>{
+        divMsg.remove()
+    }, 3000)
 }
+
+const btns = [...document.querySelectorAll('.remove-btn')]
+
+btns.forEach(btn => {
+    btn.addEventListener('click', (evt)=>{
+        evt.preventDefault()
+
+        const modal = new bootstrap.Modal(document.getElementById('removeToCartModal'))
+        modal.show()
+
+        const btnTarget = evt.target
+        const productId = btnTarget.getAttribute('productId')
+        
+        confirmRemove = document.getElementById('confirmRemove')
+        confirmRemove.addEventListener('click', async ()=>{
+            try {
+                const response = await fetch(`/remove_item/${productId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+
+                if (response.ok){
+                    location.reload()
+                    displayMessage('Produto Removido com sucesso', 'msg-success')
+
+                } else {
+                    alert('Erro ao remover item.')
+                }
+            } catch (error) {
+                console.error('Error: ', error)
+                alert("Ocorreu algum erro ao remover item!")
+            }
+        })
+    })
+})

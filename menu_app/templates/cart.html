@@ -33,7 +33,7 @@
                     <td>
                         <form id="removeToItemCartForm" action="{% url "menu_app:remove_item" product_id %}" method="POST">
                             {% csrf_token %}
-                            <button onclick="removeItemToCart()" type="submit" class="btn btn-danger btn-sm remove-btn">Remover</button>
+                            <button productId="{{product_id}}" type="submit" class="btn btn-danger btn-sm remove-btn">Remover</button>
                         </form>
                     </td>
                 </tr>
@@ -64,11 +64,11 @@
             </div>
             <div class="modal-body modal-content-info">
                 <img class="img-add-to-cart" src="{% static "assets/images/depressao.png" %}">
-                <strong>Tem certeza que deseja {{}} remover do carrinho?</strong>
+                <strong>Tem certeza que deseja remover do carrinho?</strong>
             </div>
             <div class="modal-footer">
-                <a id="noRemove" href="" class="btn btn-primary">não</a>
-                <a id="confirmRemove" href="" class="btn btn-secondary">sim, remover</a>
+                <button type="button" id="noRemove" href="" class="btn btn-primary">não</button>
+                <button type="button" id="confirmRemove" href="" class="btn btn-secondary">sim, remover</button>
             </div>
         </div>
     </div>
