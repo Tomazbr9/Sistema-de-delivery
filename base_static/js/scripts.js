@@ -141,8 +141,6 @@ btns.forEach(btn => {
 
                 if (response.ok){
                     location.reload()
-                    displayMessage('Produto Removido com sucesso', 'msg-success')
-
                 } else {
                     alert('Erro ao remover item.')
                 }
@@ -151,5 +149,9 @@ btns.forEach(btn => {
                 alert("Ocorreu algum erro ao remover item!")
             }
         })
+        noremove = document.getElementById('noRemove')
+            noremove.addEventListener('click', ()=>{
+                modal.hide()
+            })
     })
 })

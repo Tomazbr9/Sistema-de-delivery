@@ -3,8 +3,18 @@
 <html lang="pt-BR">
 {% include "partials/head.html" %}
 <body>
-    <header class="bg-dark text-white text-center py-3">
-        <h1>Cardápio Digital</h1>
+    <header class="header">
+        <nav class="menu-bar">
+            <div class="container-store-name">
+                <img class="logo-store" src="https://image.freepik.com/vetores-gratis/exterior-da-loja-generica-na-rua-da-cidade_169241-1064.jpg" alt="Loja Generica">
+                <h1>Nome da loja</h1>
+            </div>
+            <div class="container-store-info">
+                <a href=""><i class="bi bi-share-fill"></i></a>
+                <a href=""><i class="bi bi-geo-alt-fill"></i></a>
+                <a href=""><i class="bi bi-info-circle"></i></a>
+            </div>
+        </nav>
     </header>
     <main class="container mt-4">
        {% block main_content %}{% endblock main_content %}
