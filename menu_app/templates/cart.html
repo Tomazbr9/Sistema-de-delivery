@@ -47,7 +47,7 @@
             </tfoot>
         </table>
         <div class="d-flex justify-content-end">
-            <a href="" class="btn btn-primary">Finalizar Compra</a>
+            <a href="{% url "menu_app:finalize_order" %}" class="btn btn-primary">Finalizar Compra</a>
         </div>
     {% else %}
         <div class="alert alert-warning text-center">

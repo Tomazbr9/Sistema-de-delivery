@@ -2,13 +2,15 @@ from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from django.contrib import messages
 from django.shortcuts import redirect
-from menu_app.models import Customer, Product, Order
+from menu_app.models import Customer, Product, Order, OrderProduct
 from menu_app.serializers import (CustomerSerializer, 
 ProductSerializer, OrderSerializer)
+from decimal import Decimal
 import json
 
 # Define a visualização da API para o modelo Customer
@@ -131,7 +133,65 @@ class UpdateItemAPIView(APIView):
             'total': total,
             'quantity': quantity
         }, status=status.HTTP_200_OK)
+    
+class FinalizeOrderAPIView(APIView):
+    """
+    API para finalizar o pedido com os itens do carrinho.
+    Cria um pedido com os produtos, quantidades e total.
+    """
+    def post(self, request):
+        # Obtém o carrinho armazenado na sessão
+        cart = request.session.get('cart', {})
 
+        # Verifica se o carrinho está vazio
+        if not cart:
+            return Response({'error': 'O carrinho está vazio'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Inicializa o total do pedido
+        total = 0
 
+        try:
+            # Cria o pedido em uma transação atômica
+            with transaction.atomic():
+                # Cria o objeto do pedido
+                order = Order.objects.create(
+                    customer_name=request.data.get('customer_name', 'Cliente Anônimo'),
+                    customer_email=request.data.get('customer_email', ''),
+                )
 
+                # Itera pelos itens do carrinho para criar OrderItems
+                for product_id, item in cart.items():
+                    product = Product.objects.get(pk=product_id)  # Obtém o produto do banco
+                    quantity = item['quantity']
+                    price = float(item['price'])
+
+                    # Cria um item do pedido
+                    OrderProduct.objects.create(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                        price=price,
+                    )
+
+                    # Incrementa o total do pedido
+                    total += price * quantity
+
+                # Atualiza o total do pedido
+                order.total = Decimal(total)
+                order.save()
+
+                # Limpa o carrinho da sessão
+                request.session['cart'] = {}
+                request.session.modified = True
+
+            # Retorna a resposta de sucesso
+            return Response({
+                'message': 'Pedido finalizado com sucesso!',
+                'order_id': order.pk,
+                'total': total,
+            }, status=status.HTTP_201_CREATED)
+
+        except Product.DoesNotExist:
+            return Response({'error': 'Um dos produtos do carrinho não foi encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
