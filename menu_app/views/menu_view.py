@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from menu_app.models import Category, Product
+from django.shortcuts import render, get_object_or_404
+from menu_app.models import Category, Product, OrderProduct, Order, Customer
 
 def index(request):
     # Obtém todas as categorias do banco de dados usando o modelo Category.
@@ -64,3 +64,12 @@ def view_cart(request):
 
     # Renderiza o template 'cart.html', passando o contexto com os dados do carrinho.
     return render(request, 'cart.html', context)
+
+def wish_list_view(request):
+
+    customer = Customer.objects.get(pk=1)
+
+    orders = Order.objects.filter(
+        customer=customer).prefetch_related('order_products__product')
+
+    

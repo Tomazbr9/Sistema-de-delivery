@@ -47,7 +47,10 @@
             </tfoot>
         </table>
         <div class="d-flex justify-content-end">
-            <a href="{% url "menu_app:finalize_order" %}" class="btn btn-primary">Finalizar Compra</a>
+            <form action="{% url "menu_app:finalize_order" %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+            </form>
         </div>
     {% else %}
         <div class="alert alert-warning text-center">

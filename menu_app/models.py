@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -68,7 +69,7 @@ class Order(models.Model):
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='pedidos'
     )
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0.0"))
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default='pendente'
     )

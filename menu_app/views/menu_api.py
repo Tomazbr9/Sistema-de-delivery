@@ -153,10 +153,13 @@ class FinalizeOrderAPIView(APIView):
         try:
             # Cria o pedido em uma transação atômica
             with transaction.atomic():
+
+                customer = Customer.objects.get(pk=1)
+                # customer = get_object_or_404(Customer, pk=customer_id)
+
                 # Cria o objeto do pedido
                 order = Order.objects.create(
-                    customer_name=request.data.get('customer_name', 'Cliente Anônimo'),
-                    customer_email=request.data.get('customer_email', ''),
+                    customer = customer
                 )
 
                 # Itera pelos itens do carrinho para criar OrderItems
@@ -177,7 +180,7 @@ class FinalizeOrderAPIView(APIView):
                     total += price * quantity
 
                 # Atualiza o total do pedido
-                order.total = Decimal(total)
+                order.total = Decimal(str(total))
                 order.save()
 
                 # Limpa o carrinho da sessão
@@ -188,7 +191,8 @@ class FinalizeOrderAPIView(APIView):
             return Response({
                 'message': 'Pedido finalizado com sucesso!',
                 'order_id': order.pk,
-                'total': total,
+                'total': f'{total:.2f}',
+                'customer': customer.pk
             }, status=status.HTTP_201_CREATED)
 
         except Product.DoesNotExist:
