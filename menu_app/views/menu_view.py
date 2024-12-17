@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from menu_app.models import Category, Product, OrderProduct, Order, Customer
+from menu_app.forms import LoginForm
 
 def index(request):
     # Obtém todas as categorias do banco de dados usando o modelo Category.
@@ -71,5 +72,26 @@ def wish_list_view(request):
 
     orders = Order.objects.filter(
         customer=customer).prefetch_related('order_products__product')
+    
+    context = {
+        'orders': orders
+    }
+    
+    return render(request, 'wish_list.html', context)
 
+def register_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(...)
+    else:
+        form = LoginForm()
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, 'register.html', context)
+        
     

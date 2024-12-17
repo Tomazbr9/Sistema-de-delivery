@@ -47,7 +47,7 @@
             </tfoot>
         </table>
         <div class="d-flex justify-content-end">
-            <form action="{% url "menu_app:finalize_order" %}" method="POST">
+            <form action="{% if user.is_authenticated %}{% url "menu_app:menu" %}{% else %}{% url "menu_app:register" %}{% endif %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">Finalizar Compra</button>
             </form>
