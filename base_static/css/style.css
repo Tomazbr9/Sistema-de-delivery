@@ -156,3 +156,22 @@ body {
     gap: 20px;
 }
 
+.logo-register {
+    width: 150px;
+    border-radius: 50px;
+}
+
+.modal-ajust {
+    padding: 50px;
+}
+
+.login-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container-login-btn {
+    display: flex;
+    justify-content: end;
+}

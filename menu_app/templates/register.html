@@ -4,16 +4,18 @@
 
 <div class="content-center">
     <div class='top-form-register'>
-        <img class="logo-store" src="https://image.freepik.com/vetores-gratis/exterior-da-loja-generica-na-rua-da-cidade_169241-1064.jpg" alt="Loja Generica">
-        <p><b>Ainda não tem cadastro?</b> <br> Acesse sua conta ou <br> informe  seu telefone para entrar</p>
+        <img class="logo-register" src="https://image.freepik.com/vetores-gratis/exterior-da-loja-generica-na-rua-da-cidade_169241-1064.jpg" alt="Loja Generica">
+        <p><b>Ainda não tem cadastro?</b> <br> Acesse sua conta informando <br> seu telefone ou cadastre-se</p>
     </div>
-    {% for field in form %}
-    <div class="mb-3">
-        <label for="field.id_for_label" class="form-label">{{field.label}}</label>
-        {{field}}
+    <div>
+        {% for field in form %}
+        <div class="mb-3">
+            <label for="field.id_for_label" class="form-label">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+        <a class="register-link">Criar Cadastro</a>
     </div>
-    {% endfor %}
-
 </div>
 
 {% endblock main_content %}

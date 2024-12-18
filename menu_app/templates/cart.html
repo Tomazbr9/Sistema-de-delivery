@@ -47,9 +47,9 @@
             </tfoot>
         </table>
         <div class="d-flex justify-content-end">
-            <form action="{% if user.is_authenticated %}{% url "menu_app:menu" %}{% else %}{% url "menu_app:register" %}{% endif %}" method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+                <button confirmAuthentication="{{user.is_authenticated}}" id="finalizeOrder" type="submit" class="btn btn-primary">Finalizar Compra</button>
             </form>
         </div>
     {% else %}
@@ -58,7 +58,7 @@
         </div>
     {% endif %}
 </div>
-<!-- Modal -->
+<!-- Modals -->
 <div class="modal fade" id="removeToCartModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -73,6 +73,29 @@
                 <button type="button" id="noRemove" class="btn btn-primary">Não</button>
                 <button type="button" id="confirmRemove" class="btn btn-secondary">Sim, remover</button>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="loginUser" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-ajust">
+            <div class='top-form-register'>
+                <img class="logo-register" src="https://image.freepik.com/vetores-gratis/exterior-da-loja-generica-na-rua-da-cidade_169241-1064.jpg" alt="Loja Generica">
+                <p><b>Ainda não tem cadastro?</b> <br> Acesse sua conta informando <br> seu telefone ou cadastre-se</p>
+            </div>
+            <div>
+                <form class="login-form" action="{% url "menu_app:login" %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="fieldPhone" class="form-label">Talefone</label>
+                        <input id='fieldPhone' type="text" name="phone" class="form-control">
+                    </div>
+                    <div class="container-login-btn">
+                        <button class="login-btn btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <a class="register-link">Criar Cadastro</a>
+            </div>  
         </div>
     </div>
 </div>

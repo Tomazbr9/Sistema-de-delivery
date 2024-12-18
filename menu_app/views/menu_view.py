@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from menu_app.models import Category, Product, OrderProduct, Order, Customer
 from menu_app.forms import LoginForm
+from django.contrib.auth import login
 
 def index(request):
     # Obtém todas as categorias do banco de dados usando o modelo Category.
@@ -94,4 +95,15 @@ def register_view(request):
 
     return render(request, 'register.html', context)
         
-    
+
+def login_user_view(request):
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
+
+        user = Customer.objects.get(number=phone)
+        
+        # PAREI AQUI
+        print(user.name)
+        print(user.number)
+
+    return render(request, 'index.html')

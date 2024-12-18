@@ -155,3 +155,21 @@ btns.forEach(btn => {
             })
     })
 })
+
+
+const finalizeOrder = document.getElementById('finalizeOrder')
+finalizeOrder.addEventListener('click', (evt)=>{
+    evt.preventDefault()
+
+    const btn = evt.target
+    const confirmAuthentication = btn.getAttribute('confirmAuthentication')
+
+    if (confirmAuthentication){
+        let modal = new bootstrap.Modal(document.getElementById('loginUser'))
+        modal.show()
+    } else {
+        console.log('ainda não')
+    }
+    
+    
+})
