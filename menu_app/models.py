@@ -30,24 +30,9 @@ class Product(models.Model):
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
 
-class Address(models.Model):
-    full_address = models.CharField(max_length=255)
-    number = models.CharField(max_length=20)
-    complement = models.CharField(max_length=255, blank=True, null=True)
-    name_address = models.CharField(max_length=20, blank=True, null=True)
-    reference = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.full_address
-    
-    class Meta:
-        verbose_name = 'Endereço'
-        verbose_name_plural = 'Endereços'
-
 class Customer(models.Model):
     name = models.CharField(max_length=255)
     number = models.CharField(max_length=15)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
@@ -56,7 +41,6 @@ class Customer(models.Model):
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
     
-
 class Order(models.Model):
     
     STATUS_CHOICES = [

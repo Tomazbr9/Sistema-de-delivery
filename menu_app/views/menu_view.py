@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from menu_app.models import Category, Product, OrderProduct, Order, Customer
-from menu_app.forms import LoginForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 
 def index(request):
     # Obtém todas as categorias do banco de dados usando o modelo Category.
@@ -82,28 +81,25 @@ def wish_list_view(request):
 
 def register_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(...)
-    else:
-        form = LoginForm()
+        name = request.POST.get('name')
+        number = request.POST.get('number')
+    
+        user = Customer.objects.create(name=name, number=number)
+        user.save()
 
-    context = {
-        'form' : form
-    }
-
-    return render(request, 'register.html', context)
+    return render(request, 'register.html')
         
 
-def login_user_view(request):
-    if request.method == 'POST':
-        phone = request.POST.get('phone')
+# def login_view(request):
+#     if request.method == 'POST':
+#         phone = request.POST.get('phone')
+#         user = Customer.objects.get(number=phone)
 
-        user = Customer.objects.get(number=phone)
-        
-        # PAREI AQUI
-        print(user.name)
-        print(user.number)
+#         # if not user:
+#         #     print("usurio não cadastrado")
+#         # else:
+#         #      ...
 
-    return render(request, 'index.html')
+
+
+#     return render(request, 'index.html')

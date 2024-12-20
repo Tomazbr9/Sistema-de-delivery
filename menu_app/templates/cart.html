@@ -84,7 +84,7 @@
                 <p><b>Ainda não tem cadastro?</b> <br> Acesse sua conta informando <br> seu telefone ou cadastre-se</p>
             </div>
             <div>
-                <form class="login-form" action="{% url "menu_app:login" %}" method="POST">
+                <form class="login-form" action="" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="fieldPhone" class="form-label">Talefone</label>
@@ -94,7 +94,7 @@
                         <button class="login-btn btn btn-primary">Login</button>
                     </div>
                 </form>
-                <a class="register-link">Criar Cadastro</a>
+                <a href="{% url "menu_app:register" %}" class="register-link">Criar Cadastro</a>
             </div>  
         </div>
     </div>

@@ -3,18 +3,26 @@
 {% block main_content %}
 
 <div class="content-center">
-    <div class='top-form-register'>
-        <img class="logo-register" src="https://image.freepik.com/vetores-gratis/exterior-da-loja-generica-na-rua-da-cidade_169241-1064.jpg" alt="Loja Generica">
-        <p><b>Ainda não tem cadastro?</b> <br> Acesse sua conta informando <br> seu telefone ou cadastre-se</p>
-    </div>
-    <div>
-        {% for field in form %}
-        <div class="mb-3">
-            <label for="field.id_for_label" class="form-label">{{field.label}}</label>
-            {{field}}
+    <div class='conteiner-register'>
+        <div class='top-form-register'>
+            <img class="logo-register" src="https://image.freepik.com/vetores-gratis/exterior-da-loja-generica-na-rua-da-cidade_169241-1064.jpg" alt="Loja Generica">
+            <p>Cadastre-se para continuar comprando</p>
+
         </div>
-        {% endfor %}
-        <a class="register-link">Criar Cadastro</a>
+        <div class="mb-3">
+            <form class="row g-3 needs-validation" method="POST" action="{% url "menu_app:register" %}">
+                {% csrf_token %}
+                <div class="mb-3 position-relative">
+                    <label for="name" class="form-label">Nome</label>
+                    <input id="name" type="text", name='name' class="form-control">
+                </div>
+                <div class="mb-3 position-relative">
+                    <label for="number" class="form-label">Telefone</label>
+                    <input id="number" type="text", name='number' class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
     </div>
 </div>
 

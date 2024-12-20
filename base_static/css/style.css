@@ -175,3 +175,7 @@ body {
     display: flex;
     justify-content: end;
 }
+
+.conteiner-register {
+    gap: 20px;
+}

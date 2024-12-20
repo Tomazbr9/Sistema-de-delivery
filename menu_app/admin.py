@@ -1,17 +1,13 @@
 from django.contrib import admin
-from .models import Product, Address, Customer, Order, Category, OrderProduct
+from .models import Product, Customer, Order, Category, OrderProduct
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'price', 'available']
 
-@admin.register(Address)
-class AddressAdmin(admin.ModelAdmin):
-    list_display = ['full_address', 'number', 'complement', 'reference', 'name_address']
-
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['name', 'number', 'address']
+    list_display = ['name', 'number']
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
